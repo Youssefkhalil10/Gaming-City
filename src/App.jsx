@@ -4,6 +4,7 @@ import Login from "./components/Login";
 import Home from "./pages/Home";
 import Settings from "./pages/Settings";
 import Navbar from "./components/Navbar";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="home" element={<Home />} />
         <Route path="setting" element={<Settings />} />
+        <Route path="profile" element={<Profile />} />
       </Routes>
     </>
   );

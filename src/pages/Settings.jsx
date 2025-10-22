@@ -69,7 +69,7 @@ function Buttons() {
       {buttons.map((btn) => (
         <Link
           key={btn.key}
-          to="#"
+          to={btn.key === 1 ? "/profile" : "#"}
           className="
             block 
             m-auto 
