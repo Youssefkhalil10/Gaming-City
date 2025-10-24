@@ -1,189 +1,210 @@
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import Navbar from "../components/Navbar";
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
-
-  // Hero Slider Data
-  const heroSlides = [
-    {
-      id: 1,
-      image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&auto=format&fit=crop",
-      title: "أحدث ألعاب الفيديو لعام 2024",
-      description: "استكشف أفضل الألعاب الجديدة التي تم إصدارها هذا العام مع مراجعات شاملة",
-      category: "ألعاب"
-    },
-    {
-      id: 2,
-      image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800&auto=format&fit=crop",
-      title: "تحديثات PlayStation 5 الجديدة",
-      description: "تعرف على أحدث التحديثات والميزات الجديدة لجهاز PlayStation 5",
-      category: "أخبار"
-    },
-    {
-      id: 3,
-      image: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=800&auto=format&fit=crop",
-      title: "بطولة الرياضات الإلكترونية العالمية",
-      description: "تابع أحدث المنافسات والبطولات في عالم الرياضات الإلكترونية",
-      category: "رياضات إلكترونية"
-    }
-  ];
-
-  // News Cards Data
-  const newsCards = [
-    {
-      id: 1,
-      image: "https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=400&auto=format&fit=crop",
-      title: "مراجعة Cyberpunk 2077",
-      category: "مراجعات"
-    },
-    {
-      id: 2,
-      image: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=400&auto=format&fit=crop",
-      title: "أفضل ألعاب 2024",
-      category: "قوائم"
-    },
-    {
-      id: 3,
-      image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=400&auto=format&fit=crop",
-      title: "نصائح وحيل الألعاب",
-      category: "إرشادات"
-    }
-  ];
-
-  // Articles Grid Data
-  const articles = [
-    {
-      id: 1,
-      image: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=400&auto=format&fit=crop",
-      title: "أفضل ألعاب الأكشن لعام 2024",
-      category: "ألعاب"
-    },
-    {
-      id: 2,
-      image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&auto=format&fit=crop",
-      title: "مراجعة Xbox Series X",
-      category: "أجهزة"
-    },
-    {
-      id: 3,
-      image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&auto=format&fit=crop",
-      title: "دليل شامل للألعاب الجماعية",
-      category: "إرشادات"
-    },
-    {
-      id: 4,
-      image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&auto=format&fit=crop",
-      title: "ألعاب الهواتف الذكية الأكثر شعبية",
-      category: "موبايل"
-    },
-    {
-      id: 5,
-      image: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=400&auto=format&fit=crop",
-      title: "بطولات الرياضات الإلكترونية 2024",
-      category: "بطولات"
-    },
-    {
-      id: 6,
-      image: "https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=400&auto=format&fit=crop",
-      title: "أحدث تحديثات Fortnite",
-      category: "تحديثات"
-    },
-    {
-      id: 7,
-      image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=400&auto=format&fit=crop",
-      title: "مقارنة بين PS5 و Xbox",
-      category: "مقارنات"
-    },
-    {
-      id: 8,
-      image: "https://images.unsplash.com/photo-1535223289827-42f1e9919769?w=400&auto=format&fit=crop",
-      title: "أفضل ألعاب RPG",
-      category: "ألعاب"
-    }
-  ];
-
-  // Team Members Data
-  const teamMembers = [
-    { id: 1, name: "أحمد محمد", image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&auto=format&fit=crop" },
-    { id: 2, name: "سارة أحمد", image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&auto=format&fit=crop" },
-    { id: 3, name: "محمد علي", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop" },
-    { id: 4, name: "نور حسن", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop" },
-    { id: 5, name: "خالد يوسف", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop" },
-    { id: 6, name: "ليلى كريم", image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=150&auto=format&fit=crop" },
-    { id: 7, name: "عمر سعيد", image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&auto=format&fit=crop" },
-    { id: 8, name: "مريم فاروق", image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&auto=format&fit=crop" }
-  ];
+  const [heroSlides, setHeroSlides] = useState([]);
+  const [newsCards, setNewsCards] = useState([]);
+  const [articles, setArticles] = useState([]);
+  const [teamMembers, setTeamMembers] = useState([]);
 
   // Auto-play slider
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
+    // Example of fetching hero slides from an API
+    const fetchHeroSlides = async () => {
+      // This is a mock API call. Replace with your actual API endpoint.
+      let mockHeroSlides = [];
+      try {
+        const response = await fetch(
+          "https://gamingcity-production.up.railway.app/api/advertised/active"
+        );
+        const data = await response.json();
+        mockHeroSlides = data.advertised.map((item) => ({
+          id: item._id,
+          image:
+            item.imageUrl ||
+            "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=800&auto=format&fit=crop", // Placeholder image
+          title: "",
+          description: "",
+          category: "", // Default category
+        }));
+        setHeroSlides(mockHeroSlides);
+      } catch (error) {
+        console.error("Error fetching news:", error);
+      }
+    };
+
+    const fetchNewsCards = async () => {
+      try {
+        const response = await fetch(
+          "https://gamingcity-production.up.railway.app/api/news"
+        );
+        const data = await response.json();
+        const formattedNews = data.news.map((item) => ({
+          id: item._id,
+          image:
+            item.images?.[0] ||
+            "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=400&auto=format&fit=crop", // Placeholder image
+          title: item.title,
+          category: item.newsType?.title || "أخبار", // Default category
+        }));
+        setNewsCards(formattedNews);
+      } catch (error) {
+        console.error("Error fetching news:", error);
+      }
+    };
+
+    const fetchArticles = async () => {
+      try {
+        const response = await fetch(
+          "https://gamingcity-production.up.railway.app/api/news"
+        );
+        const data = await response.json();
+        const formattedArticles = data.news.map((item) => ({
+          id: item._id,
+          image:
+            item.images?.[0] ||
+            "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=400&auto=format&fit=crop", // Placeholder image
+          title: item.title,
+          category: item.newsType?.title || "أخبار", // Default category
+        }));
+        setArticles(formattedArticles);
+      } catch (error) {
+        console.error("Error fetching articles:", error);
+      }
+    };
+
+    const fetchTeamMembers = async () => {
+      const mockTeamMembers = [
+        {
+          id: 1,
+          name: "أحمد محمد",
+          image:
+            "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&auto=format&fit=crop",
+        },
+        {
+          id: 2,
+          name: "سارة أحمد",
+          image:
+            "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&auto=format&fit=crop",
+        },
+        {
+          id: 3,
+          name: "محمد علي",
+          image:
+            "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop",
+        },
+        {
+          id: 4,
+          name: "نور حسن",
+          image:
+            "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop",
+        },
+        {
+          id: 5,
+          name: "خالد يوسف",
+          image:
+            "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop",
+        },
+        {
+          id: 6,
+          name: "ليلى كريم",
+          image:
+            "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=150&auto=format&fit=crop",
+        },
+        {
+          id: 7,
+          name: "عمر سعيد",
+          image:
+            "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&auto=format&fit=crop",
+        },
+        {
+          id: 8,
+          name: "مريم فاروق",
+          image:
+            "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&auto=format&fit=crop",
+        },
+      ];
+      setTeamMembers(mockTeamMembers);
+    };
+
+    fetchHeroSlides();
+    fetchNewsCards();
+    fetchArticles();
+    fetchTeamMembers();
+
+    if (heroSlides.length > 0) {
+      const timer = setInterval(() => {
+        setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+      }, 5000);
+      return () => clearInterval(timer);
+    }
+  }, [heroSlides.length]);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
+    setCurrentSlide(
+      (prev) => (prev - 1 + heroSlides.length) % heroSlides.length
+    );
   };
 
   return (
     <div className="min-h-screen bg-black-900" dir="rtl">
-      
       {/* Hero Slider Section */}
       <section className="relative bg-gradient-to-br  overflow-hidden mt-18">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <Navbar />
           <div className="relative h-96 md:h-[500px] rounded-3xl overflow-hidden shadow-2xl">
             <AnimatePresence mode="wait">
-              <motion.div
-                key={currentSlide}
-                initial={{ opacity: 0, x: 100 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -100 }}
-                transition={{ duration: 0.5 }}
-                className="absolute inset-0"
-              >
-                <img
-                  src={heroSlides[currentSlide].image}
-                  alt={heroSlides[currentSlide].title}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                
-                <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
-                  <motion.span
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="inline-block bg-yellow-500 text-black px-4 py-2 rounded-full text-sm font-bold mb-4"
-                  >
-                    {heroSlides[currentSlide].category}
-                  </motion.span>
-                  <motion.h2
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
-                    className="text-3xl md:text-5xl font-extrabold text-white mb-4"
-                  >
-                    {heroSlides[currentSlide].title}
-                  </motion.h2>
-                  <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 }}
-                    className="text-lg text-gray-200 max-w-2xl"
-                  >
-                    {heroSlides[currentSlide].description}
-                  </motion.p>
+              {heroSlides.length > 0 && (
+                <div
+                  key={currentSlide}
+                  initial={{ opacity: 0, x: 100 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -100 }}
+                  transition={{ duration: 0.5 }}
+                  className="absolute inset-0"
+                >
+                  <img
+                    src={heroSlides[currentSlide].image}
+                    alt={heroSlides[currentSlide].title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+
+                  <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
+                    <span
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
+                      className="inline-block bg-yellow-500 text-black px-4 py-2 rounded-full text-sm font-bold mb-4"
+                    >
+                      {heroSlides[currentSlide].category}
+                    </span>
+                    <h2
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3 }}
+                      className="text-3xl md:text-5xl font-extrabold text-white mb-4"
+                    >
+                      {heroSlides[currentSlide].title}
+                    </h2>
+                    <p
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.4 }}
+                      className="text-lg text-gray-200 max-w-2xl"
+                    >
+                      {heroSlides[currentSlide].description}
+                    </p>
+                  </div>
                 </div>
-              </motion.div>
+              )}
             </AnimatePresence>
 
             {/* Navigation Buttons */}
@@ -220,7 +241,7 @@ export default function Home() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid md:grid-cols-3 gap-6">
           {newsCards.map((card, index) => (
-            <motion.div
+            <div
               key={card.id}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -241,7 +262,7 @@ export default function Home() {
               <div className="p-6">
                 <h3 className="text-xl font-bold text-white">{card.title}</h3>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </section>
@@ -286,7 +307,7 @@ export default function Home() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {articles.map((article, index) => (
-            <motion.div
+            <div
               key={article.id}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -309,7 +330,7 @@ export default function Home() {
                   {article.title}
                 </h3>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
@@ -328,7 +349,7 @@ export default function Home() {
         </h2>
         <div className="grid grid-cols-4 md:grid-cols-8 gap-6">
           {teamMembers.map((member, index) => (
-            <motion.div
+            <div
               key={member.id}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -344,7 +365,7 @@ export default function Home() {
                 />
               </div>
               <p className="text-xs text-gray-400 font-medium">{member.name}</p>
-            </motion.div>
+            </div>
           ))}
         </div>
       </section>
@@ -354,8 +375,12 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="w-32 h-32 bg-purple-900 rounded-3xl flex items-center justify-center shadow-2xl">
-              <svg className="w-20 h-20 text-white" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2L2 7v10c0 5.5 3.8 10.7 10 12 6.2-1.3 10-6.5 10-12V7l-10-5zm0 18c-4.4 0-8-3.6-8-8V8.3l8-4.7 8 4.7V12c0 4.4-3.6 8-8 8z"/>
+              <svg
+                className="w-20 h-20 text-white"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 2L2 7v10c0 5.5 3.8 10.7 10 12 6.2-1.3 10-6.5 10-12V7l-10-5zm0 18c-4.4 0-8-3.6-8-8V8.3l8-4.7 8 4.7V12c0 4.4-3.6 8-8 8z" />
               </svg>
             </div>
             <div className="flex-1 text-center md:text-right">
@@ -363,9 +388,10 @@ export default function Home() {
                 من نحن؟
               </h2>
               <p className="text-lg text-white-500 leading-relaxed">
-                نحن فريق متخصص في تقديم أحدث الأخبار والمراجعات حول عالم الألعاب والتقنية. 
-                هدفنا هو توفير محتوى عالي الجودة وموثوق لجميع عشاق الألعاب في الوطن العربي.
-                نسعى دائماً لتقديم تجربة فريدة ومميزة لمتابعينا من خلال تغطية شاملة لكل ما هو جديد.
+                نحن فريق متخصص في تقديم أحدث الأخبار والمراجعات حول عالم الألعاب
+                والتقنية. هدفنا هو توفير محتوى عالي الجودة وموثوق لجميع عشاق
+                الألعاب في الوطن العربي. نسعى دائماً لتقديم تجربة فريدة ومميزة
+                لمتابعينا من خلال تغطية شاملة لكل ما هو جديد.
               </p>
             </div>
           </div>
@@ -379,44 +405,106 @@ export default function Home() {
             <div>
               <h3 className="text-white font-bold mb-4">روابط سريعة</h3>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-yellow-500 transition">الرئيسية</a></li>
-                <li><a href="#" className="hover:text-yellow-500 transition">الأخبار</a></li>
-                <li><a href="#" className="hover:text-yellow-500 transition">المراجعات</a></li>
-                <li><a href="#" className="hover:text-yellow-500 transition">الفيديوهات</a></li>
+                <li>
+                  <a href="#" className="hover:text-yellow-500 transition">
+                    الرئيسية
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-yellow-500 transition">
+                    الأخبار
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-yellow-500 transition">
+                    المراجعات
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-yellow-500 transition">
+                    الفيديوهات
+                  </a>
+                </li>
               </ul>
             </div>
             <div>
               <h3 className="text-white font-bold mb-4">الفئات</h3>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-yellow-500 transition">أجهزة الألعاب</a></li>
-                <li><a href="#" className="hover:text-yellow-500 transition">ألعاب الحاسوب</a></li>
-                <li><a href="#" className="hover:text-yellow-500 transition">ألعاب الهواتف</a></li>
-                <li><a href="#" className="hover:text-yellow-500 transition">الرياضات الإلكترونية</a></li>
+                <li>
+                  <a href="#" className="hover:text-yellow-500 transition">
+                    أجهزة الألعاب
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-yellow-500 transition">
+                    ألعاب الحاسوب
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-yellow-500 transition">
+                    ألعاب الهواتف
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-yellow-500 transition">
+                    الرياضات الإلكترونية
+                  </a>
+                </li>
               </ul>
             </div>
             <div>
               <h3 className="text-white font-bold mb-4">الشركة</h3>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-yellow-500 transition">من نحن</a></li>
-                <li><a href="#" className="hover:text-yellow-500 transition">اتصل بنا</a></li>
-                <li><a href="#" className="hover:text-yellow-500 transition">سياسة الخصوصية</a></li>
-                <li><a href="#" className="hover:text-yellow-500 transition">شروط الاستخدام</a></li>
+                <li>
+                  <a href="#" className="hover:text-yellow-500 transition">
+                    من نحن
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-yellow-500 transition">
+                    اتصل بنا
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-yellow-500 transition">
+                    سياسة الخصوصية
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-yellow-500 transition">
+                    شروط الاستخدام
+                  </a>
+                </li>
               </ul>
             </div>
             <div>
               <h3 className="text-white font-bold mb-4">تابعنا</h3>
-              <p className="text-sm mb-4">ابق على تواصل معنا عبر منصات التواصل الاجتماعي</p>
+              <p className="text-sm mb-4">
+                ابق على تواصل معنا عبر منصات التواصل الاجتماعي
+              </p>
               <div className="flex gap-3">
-                <a href="#" className="w-10 h-10 bg-gray-800 hover:bg-yellow-500 rounded-lg flex items-center justify-center transition">
+                <a
+                  href="#"
+                  className="w-10 h-10 bg-gray-800 hover:bg-yellow-500 rounded-lg flex items-center justify-center transition"
+                >
                   <span className="text-xl">📘</span>
                 </a>
-                <a href="#" className="w-10 h-10 bg-gray-800 hover:bg-yellow-500 rounded-lg flex items-center justify-center transition">
+                <a
+                  href="#"
+                  className="w-10 h-10 bg-gray-800 hover:bg-yellow-500 rounded-lg flex items-center justify-center transition"
+                >
                   <span className="text-xl">📷</span>
                 </a>
-                <a href="#" className="w-10 h-10 bg-gray-800 hover:bg-yellow-500 rounded-lg flex items-center justify-center transition">
+                <a
+                  href="#"
+                  className="w-10 h-10 bg-gray-800 hover:bg-yellow-500 rounded-lg flex items-center justify-center transition"
+                >
                   <span className="text-xl">🐦</span>
                 </a>
-                <a href="#" className="w-10 h-10 bg-gray-800 hover:bg-yellow-500 rounded-lg flex items-center justify-center transition">
+                <a
+                  href="#"
+                  className="w-10 h-10 bg-gray-800 hover:bg-yellow-500 rounded-lg flex items-center justify-center transition"
+                >
                   <span className="text-xl">▶️</span>
                 </a>
               </div>
