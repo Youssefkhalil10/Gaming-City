@@ -46,31 +46,21 @@ const Login = () => {
     setError(null);
 
     try {
-      const res = await fetch("/api/users/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      // ✅ Mock API: محاكاة delay
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      if (!res.ok) {
-        if (res.status === 400 || res.status === 401) {
-          throw new Error("البريد الإلكتروني أو كلمة المرور غير صحيحة");
-        } else if (res.status === 500) {
-          throw new Error("خطأ في السيرفر - يرجى المحاولة لاحقاً");
-        } else {
-          throw new Error("حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.");
-        }
+      // ✅ تحقق من البيانات مباشرة
+      if (
+        formData.email === "owner@gmail.com" &&
+        formData.password === "111111"
+      ) {
+        const fakeData = { token: "fake-jwt-token" }; // token وهمي
+        localStorage.setItem("token", fakeData.token);
+        console.log("✅ Login success:", fakeData);
+        navigate("/home");
+      } else {
+        throw new Error("البريد الإلكتروني أو كلمة المرور غير صحيحة");
       }
-
-      const data = await res.json();
-      console.log("✅ Login success:", data);
-
-      if (data.token) {
-        localStorage.setItem("token", data.token);
-      }
-
-      // ✅ Use React Router navigation
-      navigate("/home");
     } catch (err) {
       console.error("❌ Login error:", err);
       setError(err.message);
@@ -120,7 +110,10 @@ const Login = () => {
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col items-center gap-4"
+        >
           {/* Email */}
           <div className="w-full max-w-2xl relative">
             <input
@@ -144,7 +137,9 @@ const Login = () => {
               </svg>
             </div>
             {validationErrors.email && (
-              <p className="text-red-500 text-xs mt-1 pr-2">{validationErrors.email}</p>
+              <p className="text-red-500 text-xs mt-1 pr-2">
+                {validationErrors.email}
+              </p>
             )}
           </div>
 
@@ -171,7 +166,9 @@ const Login = () => {
               </svg>
             </div>
             {validationErrors.password && (
-              <p className="text-red-500 text-xs mt-1 pr-2">{validationErrors.password}</p>
+              <p className="text-red-500 text-xs mt-1 pr-2">
+                {validationErrors.password}
+              </p>
             )}
           </div>
 
