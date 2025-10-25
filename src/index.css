@@ -1,0 +1,26 @@
+/* src/index.css */
+body.light {
+  background-color: #f5f5f5;
+  color: #111;
+}
+
+body.dark {
+  background-color: #111;
+  color: #f5f5f5;
+}
+
+/* optional: buttons */
+.btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.btn-light {
+  background: #eee;
+  color: #111;
+}
+.btn-dark {
+  background: #333;
+  color: #fff;
+}
