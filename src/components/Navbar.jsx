@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useTheme } from "../context/ThemeContext";
 import logo from "../assets/gamingcity.png";
+import userPhoto from "../assets/gamingcity.png";
 import { Link } from "react-router-dom";
 export default function Navbar({ onNavigate }) {
   const { isDarkMode, toggleTheme } = useTheme();
@@ -22,7 +23,6 @@ export default function Navbar({ onNavigate }) {
     if (typeof onNavigate === "function") {
       onNavigate(key);
     } else {
-      // fallback: console log virtual navigation
       console.info("navigate ->", key);
     }
   };
@@ -69,8 +69,7 @@ export default function Navbar({ onNavigate }) {
           {/* Center: Desktop Links */}
           <div className="hidden md:flex items-center gap-6">
             {LINKS.map((link) => (
-              <Link
-                to={link.key === "calendar" ? "/setting" : `${link.key}`}
+              <button
                 key={link.key}
                 onClick={() => handleNav(link.key)}
                 className={`relative cursor-pointer px-2 py-1 text-base font-medium transition-all duration-200
@@ -86,16 +85,32 @@ export default function Navbar({ onNavigate }) {
                   className={`absolute left-0 bottom-0 h-[2px] w-0 rounded-sm transition-all duration-200
                     ${isDarkMode ? "bg-yellow-400" : "bg-yellow-500"}`}
                 />
-                {/* grow underline on hover via group pseudo (using inline styling trick) */}
                 <style>{`
                   button[aria-label="Open ${link.label}"]:hover span:not(:first-child){ width:100%; }
                 `}</style>
-              </Link>
+              </button>
             ))}
           </div>
 
           {/* Right: Actions */}
           <div className="flex items-center gap-3">
+            {/* User Photo - Now placed with social icons */}
+            <button
+              onClick={() => handleNav("profile")}
+              className="flex items-center focus:outline-none"
+              aria-label="User profile"
+            >
+              <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-yellow-400 shadow-md">
+                <Link to={"/setting"}>
+                  <img
+                    src={userPhoto}
+                    alt="User profile"
+                    className="w-full h-full object-cover"
+                  />
+                </Link>
+              </div>
+            </button>
+
             {/* Social icons (small) */}
             <div className="hidden lg:flex items-center gap-3">
               <a
@@ -233,6 +248,26 @@ export default function Navbar({ onNavigate }) {
           }`}
         >
           <div className="flex flex-col gap-2">
+            {/* User Profile in Mobile Menu */}
+            <button
+              onClick={() => handleNav("profile")}
+              className={`w-full text-right py-2 px-3 rounded-md font-medium transition flex items-center justify-end gap-3
+                ${
+                  isDarkMode
+                    ? "text-gray-100 hover:bg-gray-800/60"
+                    : "text-gray-800 hover:bg-yellow-50"
+                }`}
+            >
+              <span>الملف الشخصي</span>
+              <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-yellow-400 shadow-md">
+                <img
+                  src={userPhoto}
+                  alt="User profile"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </button>
+
             {LINKS.map((link) => (
               <button
                 key={link.key}
