@@ -5,7 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: "/Gaming-City/",
+  base: import.meta.env.MODE === "production" ? "/Gaming-City/" : "/",
   server: {
     proxy: {
       "/api": {
