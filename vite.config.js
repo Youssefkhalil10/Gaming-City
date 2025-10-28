@@ -1,10 +1,12 @@
+/* eslint-env node */
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 
-export default defineConfig(({ command }) => ({
+// https://vite.dev/config/
+export default defineConfig(({ mode }) => ({
   plugins: [react(), tailwindcss()],
-  base: command === "build" ? "/Gaming-City/" : "/",
+  base: mode === "production" ? "/Gaming-City/" : "/",
   build: {
     outDir: "dist",
   },
