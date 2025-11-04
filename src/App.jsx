@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Login from "./components/Login";
 import Home from "./pages/Home";
@@ -6,6 +6,7 @@ import Settings from "./pages/Settings";
 import Navbar from "./components/Navbar";
 import Profile from "./pages/Profile";
 import DashBord from "./pages/DashBord";
+
 function App() {
   return (
     <>

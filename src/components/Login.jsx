@@ -46,31 +46,21 @@ const Login = () => {
     setError(null);
 
     try {
-      const res = await fetch("/api/users/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      // ✅ Mock API: محاكاة delay
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      if (!res.ok) {
-        if (res.status === 400 || res.status === 401) {
-          throw new Error("البريد الإلكتروني أو كلمة المرور غير صحيحة");
-        } else if (res.status === 500) {
-          throw new Error("خطأ في السيرفر - يرجى المحاولة لاحقاً");
-        } else {
-          throw new Error("حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.");
-        }
+      // ✅ تحقق من البيانات مباشرة
+      if (
+        formData.email === "owner@gmail.com" &&
+        formData.password === "111111"
+      ) {
+        const fakeData = { token: "fake-jwt-token" }; // token وهمي
+        localStorage.setItem("token", fakeData.token);
+        console.log("✅ Login success:", fakeData);
+        navigate("/home", { replace: true });
+      } else {
+        throw new Error("البريد الإلكتروني أو كلمة المرور غير صحيحة");
       }
-
-      const data = await res.json();
-      console.log("✅ Login success:", data);
-
-      if (data.token) {
-        localStorage.setItem("token", data.token);
-      }
-
-      // ✅ Use React Router navigation
-      navigate("/home", { replace: true });
     } catch (err) {
       console.error("❌ Login error:", err);
       setError(err.message);
