@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useTheme } from "../context/ThemeContext";
 import logo from "../assets/gamingcity.png";
-import userPhoto from "../assets/gamingcity.png";
+import userPhoto from "../assets/admin.png";
 import { Link } from "react-router-dom";
 export default function Navbar({ onNavigate }) {
   const { isDarkMode, toggleTheme } = useTheme();
@@ -101,7 +101,7 @@ export default function Navbar({ onNavigate }) {
               aria-label="User profile"
             >
               <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-yellow-400 shadow-md">
-                <Link to={"/setting"}>
+                <Link to={"/dashbord"}>
                   <img
                     src={userPhoto}
                     alt="User profile"

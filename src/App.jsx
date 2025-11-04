@@ -5,14 +5,17 @@ import Home from "./pages/Home";
 import Settings from "./pages/Settings";
 import Navbar from "./components/Navbar";
 import Profile from "./pages/Profile";
+import DashBord from "./pages/DashBord";
+
 function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/setting" element={<Settings />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="home" element={<Home />} />
+        <Route path="setting" element={<Settings />} />
+        <Route path="profile" element={<Profile />} />
+        <Route path="dashbord" element={<DashBord />} />
       </Routes>
     </>
   );

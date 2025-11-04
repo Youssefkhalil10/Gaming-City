@@ -1,10 +1,10 @@
 import profile from "../assets/profile.jpg";
 import logo from "../assets/Vector.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useState } from "react";
-
 function Profile() {
+  const navigate = useNavigate();
   return (
     <>
       <motion.div
@@ -24,12 +24,13 @@ function Profile() {
         exit={{ opacity: 0, y: -50 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <Link
-          to="/setting"
+        <button
+          style={{ cursor: "pointer" }}
+          onClick={() => navigate(-1)}
           className="absolute left-3 top-3 bg-amber-300 text-black rounded-full w-8 h-8 flex items-center justify-center text-lg font-bold hover:bg-amber-400 transition"
         >
           ←
-        </Link>
+        </button>
 
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 px-4 sm:px-6 pt-10">
           <img

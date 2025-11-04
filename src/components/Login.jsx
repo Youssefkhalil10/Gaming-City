@@ -57,7 +57,7 @@ const Login = () => {
         const fakeData = { token: "fake-jwt-token" }; // token وهمي
         localStorage.setItem("token", fakeData.token);
         console.log("✅ Login success:", fakeData);
-        navigate("/home");
+        navigate("/home", { replace: true });
       } else {
         throw new Error("البريد الإلكتروني أو كلمة المرور غير صحيحة");
       }
