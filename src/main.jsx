@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "./context/ThemeContext.jsx";
-const base = import.meta.env.MODE === "production" ? "/Gaming-City" : "/";
+const base = "/";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter basename={base}>
