@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useTheme } from "../context/ThemeContext";
 import logo from "../assets/gamingcity.png";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
 const Login = () => {
   const { isDarkMode, toggleTheme } = useTheme();
   const [error, setError] = useState(null);
@@ -38,6 +38,7 @@ const Login = () => {
     return Object.keys(errors).length === 0;
   };
 
+  console.log("✅ Current API_URL:", API_URL);
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
@@ -46,24 +47,29 @@ const Login = () => {
     setError(null);
 
     try {
-      // ✅ Mock API: محاكاة delay
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      // ✅ إرسال طلب اللوجين للباك إند
+      const response = await axios.post(`${API_URL}/users/login`, {
+        email: formData.email,
+        password: formData.password,
+      });
 
-      // ✅ تحقق من البيانات مباشرة
-      if (
-        formData.email === "owner@gmail.com" &&
-        formData.password === "111111"
-      ) {
-        const fakeData = { token: "fake-jwt-token" }; // token وهمي
-        localStorage.setItem("token", fakeData.token);
-        console.log("✅ Login success:", fakeData);
-        navigate("/home", { replace: true });
-      } else {
-        throw new Error("البريد الإلكتروني أو كلمة المرور غير صحيحة");
-      }
+      console.log("✅ API Response:", response.data);
+
+      // ✅ تخزين الـ Token وبيانات المستخدم
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+
+      // ✅ توجيه حسب نوع المستخدم
+      navigate("/home", { replace: true });
     } catch (err) {
-      console.error("❌ Login error:", err);
-      setError(err.message);
+      console.error("❌ Login Error:", err);
+
+      // ✅ رسالة الخطأ من السيرفر لو موجودة
+      if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("حدث خطأ أثناء تسجيل الدخول");
+      }
     } finally {
       setLoading(false);
     }
