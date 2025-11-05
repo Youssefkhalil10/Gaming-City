@@ -16,6 +16,7 @@ const Options = [
   { key: 4, Title: "المتاجر", path: "/stores" },
   { key: 5, Title: "البطولات", path: "/tournaments" },
   { key: 6, Title: "المسؤولين", path: "/admins" },
+  { key: 7, Title: "إضافه خبر", path: "/add-news" },
 ];
 
 function Buttons() {
