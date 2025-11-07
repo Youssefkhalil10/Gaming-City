@@ -69,7 +69,8 @@ export default function Navbar({ onNavigate }) {
           {/* Center: Desktop Links */}
           <div className="hidden md:flex items-center gap-6">
             {LINKS.map((link) => (
-              <button
+              <Link
+              to={`/${link.key}`}
                 key={link.key}
                 onClick={() => handleNav(link.key)}
                 className={`relative cursor-pointer px-2 py-1 text-base font-medium transition-all duration-200
@@ -88,7 +89,7 @@ export default function Navbar({ onNavigate }) {
                 <style>{`
                   button[aria-label="Open ${link.label}"]:hover span:not(:first-child){ width:100%; }
                 `}</style>
-              </button>
+              </Link>
             ))}
           </div>
 
