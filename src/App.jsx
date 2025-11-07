@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Settings from "./pages/Settings";
 import Navbar from "./components/Navbar";
 import Profile from "./pages/Profile";
+import News from "./pages/news/News";
 function App() {
   return (
     <>
@@ -13,6 +14,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/setting" element={<Settings />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/news" element={<News />} />
       </Routes>
     </>
   );
