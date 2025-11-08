@@ -44,12 +44,14 @@ export default function Home() {
         const data = await response.json();
         const formattedNews = data.news.map((item) => ({
           id: item._id,
-          image:
-            item.images?.[0] ||
-            "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=400&auto=format&fit=crop", // Placeholder image
+          image: item.images?.[0]
+            ? `https://gamingcity-production.up.railway.app/${item.images[0]}`
+            : "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=400&auto=format&fit=crop",
           title: item.title,
           category: item.newsType?.title || "أخبار", // Default category
         }));
+        console.log(data.news);
+
         setNewsCards(formattedNews);
       } catch (error) {
         console.error("Error fetching news:", error);
@@ -64,9 +66,9 @@ export default function Home() {
         const data = await response.json();
         const formattedArticles = data.news.map((item) => ({
           id: item._id,
-          image:
-            item.images?.[0] ||
-            "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=400&auto=format&fit=crop", // Placeholder image
+          image: item.images?.[0]
+            ? `https://gamingcity-production.up.railway.app/${item.images[0]}`
+            : "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=400&auto=format&fit=crop",
           title: item.title,
           category: item.newsType?.title || "أخبار", // Default category
         }));
@@ -251,7 +253,7 @@ export default function Home() {
             >
               <div className="relative h-48 overflow-hidden">
                 <img
-                  src={card.image}
+                  src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=400&auto=format&fit=crop"
                   alt={card.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                 />
@@ -317,7 +319,7 @@ export default function Home() {
             >
               <div className="relative h-40 overflow-hidden">
                 <img
-                  src={article.image}
+                  src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=400&auto=format&fit=crop"
                   alt={article.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                 />
