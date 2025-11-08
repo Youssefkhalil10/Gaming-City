@@ -5,6 +5,7 @@ function AddNews() {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [images, setImage] = useState(null);
+  const [newsType, setNewsType] = useState(""); // ✅ New State
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -26,9 +27,9 @@ function AddNews() {
       // ✅ تجهيز formData
       const formData = new FormData();
       formData.append("title", title);
-      formData.append("content", desc); // ✅ بدل description
-      formData.append("newsType", "general"); // ✅ لازم تبعته، حتى لو ثابت
-      formData.append("images", images); //
+      formData.append("content", desc);
+      formData.append("newsType", "68ca887ce456a5f692c73dc8"); // ✅ بعد ما تضيف الـ select
+      formData.append("images", images);
 
       const response = await axios.post(`${API_URL}/news`, formData, {
         headers: {
@@ -46,7 +47,16 @@ function AddNews() {
       setImage(null);
     } catch (error) {
       console.error("❌ Error:", error);
-      setMessage("❌ فشل في إضافة الخبر —    ");
+
+      // ✅ اطبع رسالة السيرفر هنا
+      if (error.response) {
+        console.log("💬 Server Response:", error.response.data);
+        setMessage(
+          `❌ فشل في إضافة الخبر — ${error.response.data.message || ""}`
+        );
+      } else {
+        setMessage("❌ فشل في إضافة الخبر — خطأ غير متوقع");
+      }
     } finally {
       setLoading(false);
     }
@@ -69,6 +79,7 @@ function AddNews() {
           className="p-3 border rounded-lg"
           required
         />
+
         <textarea
           placeholder="وصف الخبر"
           value={desc}
@@ -77,6 +88,19 @@ function AddNews() {
           rows="5"
           required
         />
+
+        {/* ✅ قائمة اختيار نوع الخبر */}
+        <select
+          value={newsType}
+          onChange={(e) => setNewsType(e.target.value)}
+          className="p-3 border rounded-lg"
+          required
+        >
+          <option value="">اختار نوع الخبر</option>
+          <option value="68ca887ce456a5f692c73dc8">عام</option>
+          <option value="68ca888be456a5f692c73dcc">رياضة</option>
+          <option value="68ca889be456a5f692c73dcd">تقني</option>
+        </select>
 
         <input
           type="file"
