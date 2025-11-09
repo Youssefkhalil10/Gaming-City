@@ -3,11 +3,12 @@ import React, { useState } from "react";
 import { useTheme } from "../context/ThemeContext";
 import logo from "../assets/gamingcity.png";
 import userPhoto from "../assets/admin.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 export default function Navbar({ onNavigate }) {
   const { isDarkMode, toggleTheme } = useTheme();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
+  const navigate = useNavigate();
   const LINKS = [
     { key: "news", label: "الأخبار" },
     { key: "calendar", label: "التقويم" },
@@ -177,8 +178,9 @@ export default function Navbar({ onNavigate }) {
             </button>
 
             {/* CTA / Login */}
-            <button
-              onClick={() => handleNav("login")}
+            <Link
+              to={"/"}
+              onClick={() => navigate("/")}
               className={`hidden md:inline-flex items-center px-4 py-2 rounded-full font-semibold shadow-sm transition
                 ${
                   isDarkMode
@@ -187,7 +189,7 @@ export default function Navbar({ onNavigate }) {
                 }`}
             >
               تسجيل الخروج
-            </button>
+            </Link>
 
             {/* Mobile menu toggle */}
             <button
