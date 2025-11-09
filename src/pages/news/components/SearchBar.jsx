@@ -20,7 +20,7 @@ const SearchBar = ({ search, setSearch }) => {
                 />
                 <label
                     htmlFor="search"
-                    className="absolute right-3 top-2 text-lg flex items-end gap-2 transition-all duration-300 px-2 text-[#C9A227] peer-focus:invisible peer-[&:not(:placeholder-shown)]:invisible  "
+                    className="absolute right-3 top-2 text-lg flex items-end gap-2 transition-all duration-300 px-2 text-[#C9A227] peer-placeholder-shown:visible peer-[&:not(:placeholder-shown)]:visible  "
                 >
                     <IoMdSearch className='text-xl' />
                     بحث
