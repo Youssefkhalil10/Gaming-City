@@ -12,7 +12,7 @@ const AllNews = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axiosClient.get(`/api/news?page=${page}&limit=10`);
+                const response = await axiosClient.get(`/news?page=${page}&limit=10`);
                 const data = await response.data;
                 setTotalPages(data.totalPages);
                 console.log(data)
