@@ -7,7 +7,9 @@ import Navbar from "./components/Navbar";
 import Profile from "./pages/Profile";
 import DashBord from "./pages/DashBord";
 import AddNews from "./pages/AddNews";
+
 import News from "./pages/News";
+
 
 function App() {
   return (
