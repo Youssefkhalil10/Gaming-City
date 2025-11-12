@@ -115,10 +115,10 @@ function Buttons() {
 }
 
 function Form() {
-  const [data, setData] = useState({
+  const data = {
     email: "abdalhakim.miri@gmail.com",
     name: "هيمي ساروا",
-  });
+  };
   return (
     <div className="w-full text-white">
       <form
