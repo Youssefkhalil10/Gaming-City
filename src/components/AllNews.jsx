@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import SearchBar from './SearchBar';
 import NewsCard from './NewsCard';
-import axiosClient from '../../../api/axiosClient'
+import axiosClient from '../api/axiosClient'
 
 
 const AllNews = () => {

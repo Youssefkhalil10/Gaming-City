@@ -1,6 +1,6 @@
 import React from 'react'
-import Navbar from '../../components/Navbar'
-import AllNews from './components/AllNews'
+import Navbar from '../components/Navbar'
+import AllNews from '../components/AllNews'
 
 const News = () => {
   return (
