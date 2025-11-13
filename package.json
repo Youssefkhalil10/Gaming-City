@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "postinstall": "npm rebuild esbuild @rollup/rollup @tailwindcss/oxide"
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
