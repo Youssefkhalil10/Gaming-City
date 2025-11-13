@@ -7,7 +7,9 @@ import Navbar from "./components/Navbar";
 import Profile from "./pages/Profile";
 import DashBord from "./pages/DashBord";
 import AddNews from "./pages/AddNews";
+
 import News from "./pages/News";
+
 
 function App() {
   return (
@@ -15,7 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/setting" element={<Settings />} />
+        <Route path="/dashbord" element={<DashBord />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/dashbord" element={<DashBord />} />
         <Route path="/add-news" element={<AddNews />} />

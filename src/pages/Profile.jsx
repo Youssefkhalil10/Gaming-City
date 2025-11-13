@@ -1,7 +1,7 @@
 import profile from "../assets/profile.jpg";
 import logo from "../assets/Vector.png";
 import { Link, useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 import { useState } from "react";
 function Profile() {
   const navigate = useNavigate();
@@ -25,8 +25,7 @@ function Profile() {
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <button
-          style={{ cursor: "pointer" }}
-          onClick={() => navigate(-1)}
+          onClick={() => navigate("/dashbord", { replace: true })}
           className="absolute left-3 top-3 bg-amber-300 text-black rounded-full w-8 h-8 flex items-center justify-center text-lg font-bold hover:bg-amber-400 transition"
         >
           ←
@@ -116,11 +115,10 @@ function Buttons() {
 }
 
 function Form() {
-  const [data, setData] = useState({
+  const data = {
     email: "abdalhakim.miri@gmail.com",
     name: "هيمي ساروا",
-  });
-
+  };
   return (
     <div className="w-full text-white">
       <form
